@@ -41,7 +41,6 @@ export function handleRtmClick(event) {
 }
 
 //membuat get user
-
 document.addEventListener("DOMContentLoaded", () => {
   const simpelbiCard = document.getElementById("simpelbiCard");
 
@@ -59,9 +58,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Parse respons JSON dari permintaan POST
         const responseData = JSON.parse(postResult);
-        console.log("Data JSON:", responseData);
 
-        // Lakukan pemrosesan lebih lanjut atau tampilkan data JSON di antara ini
+        // Dapatkan data URL dari respons
+        const dataUrl = responseData.data;
+
+        // Tentukan halaman tujuan berdasarkan data URL
+        let targetPage = "";
+        if (dataUrl === "/admins") {
+          targetPage = "dashboard-admin.html";
+        } else if (dataUrl === "/prodi") {
+          targetPage = "dashboard-prodi.html";
+        } else {
+          console.error("URL tidak sesuai");
+          return;
+        }
+
+        // Konstruksi URL akhir
+        const finalUrl = `https://euis.ulbi.ac.i.d/simpelbi/${dataUrl}/${targetPage}`;
+
+        // Arahkan pengguna ke URL akhir
+        window.location.href = finalUrl;
       } catch (error) {
         console.error("Error:", error);
       }
