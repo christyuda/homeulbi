@@ -51,10 +51,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
       try {
         let token = CihuyGetCookie("login");
-        const postResult = await CihuyPostHeaders(apiUrlMenu, token);
-        const postData = await postResult.json();
+
+        // Lakukan permintaan POST untuk mendapatkan data
+        const postResult = await CihuyPostHeaders(postApiUrlMenu, token, {});
+
+        // Parse respons JSON dari permintaan POST
+        const postData = JSON.parse(postResult);
+
+        // Ambil data URL dari respons POST
         const dataUrl = postData.data;
 
+        // Tentukan peran pengguna berdasarkan data URL
         let userRole = "";
         if (dataUrl === "/admins") {
           userRole = "admin";
@@ -69,15 +76,13 @@ document.addEventListener("DOMContentLoaded", () => {
           return;
         }
 
-        redirectToDashboard(baseUrl, dataUrl, userRole);
+        // Buat URL akhir dan lakukan permintaan GET
+        const finalUrl = `${getBaseUrl}/simpelbi${dataUrl}/${userRole}`;
+        const getResult = await CihuyGetHeaders(finalUrl, token);
+        console.log("GET Result:", getResult); // Lakukan apa yang perlu dilakukan dengan hasil GET di sini
       } catch (error) {
         console.error("Error:", error);
       }
     });
   }
 });
-
-function redirectToDashboard(baseUrl, dataUrl, userRole) {
-  const finalUrl = `${baseUrl}/simpelbi${dataUrl}/${userRole}`;
-  window.location.href = finalUrl;
-}
