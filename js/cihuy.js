@@ -67,6 +67,15 @@ document.addEventListener("DOMContentLoaded", () => {
           window.location.href = "https://euis.ulbi.ac.i.d/simpelbi/maaf.html";
           return;
         }
+        if (
+          responseData.code === 401 &&
+          responseData.success === false &&
+          responseData.status === "Unauthorize Token"
+        ) {
+          // Arahkan pengguna ke halaman maaf
+          window.location.href = "https://euis.ulbi.ac.i.d/simpelbi/maaf.html";
+          return;
+        }
 
         // Dapatkan data URL dari respons
         const dataUrl = responseData.data;
