@@ -65,8 +65,8 @@ document.addEventListener("DOMContentLoaded", () => {
         // Tentukan halaman tujuan berdasarkan data URL
         let targetPage = "";
 
-        if (responseData.code === 400 || responseData.code === 401) {
-          targetPage = "maaf.html";
+        if (error.message.includes("HTTP error! Status: 400")) {
+          targetPage = "https://euis.ulbi.ac.i.d/maaf.html";
         } else if (dataUrl === "/admins") {
           targetPage = "dashboard-admin.html";
         } else if (dataUrl === "/prodi") {
