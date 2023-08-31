@@ -1,6 +1,9 @@
 import { CihuyId } from "https://c-craftjs.github.io/element/element.js";
 import { CihuyGetCookie } from "https://c-craftjs.github.io/cookies/cookies.js";
-import { CihuyPostHeaders } from "https://c-craftjs.github.io/api/api.js";
+import {
+  CihuyPostHeaders,
+  CihuyGetHeaders,
+} from "https://c-craftjs.github.io/api/api.js";
 import { CihuyQuerySelector } from "https://c-craftjs.github.io/element/element.js";
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -40,7 +43,7 @@ export function handleRtmClick(event) {
 //membuat get user
 
 document.addEventListener("DOMContentLoaded", () => {
-  const simpelbiCard = document.getElementById("simpelbiCard");
+  const simpelbiCard = CihuyId("simpelbiCard");
 
   if (simpelbiCard) {
     simpelbiCard.addEventListener("click", async (event) => {
