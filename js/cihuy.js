@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", () => {
         let token = CihuyGetCookie("login");
 
         // Lakukan permintaan POST untuk mendapatkan data
-        const postResult = await CihuyPostHeaders(postApiUrlMenu, token, {});
+        const postResult = await CihuyPostHeaders(apiUrlMenu, token, {});
 
         // Parse respons JSON dari permintaan POST
         const postData = JSON.parse(postResult);
@@ -77,7 +77,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         // Buat URL akhir dan lakukan permintaan GET
-        const finalUrl = `${getBaseUrl}/simpelbi${dataUrl}/${userRole}`;
+        const finalUrl = `${baseUrl}/simpelbi${dataUrl}/${userRole}`;
         const getResult = await CihuyGetHeaders(finalUrl, token);
         console.log("GET Result:", getResult); // Lakukan apa yang perlu dilakukan dengan hasil GET di sini
       } catch (error) {
