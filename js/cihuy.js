@@ -73,7 +73,11 @@ document.addEventListener("DOMContentLoaded", () => {
           targetPage = "dashboard-fakultas.html";
         } else if (dataUrl === "/auditor") {
           targetPage = "dashboard-auditor.html";
-        } else if (dataUrl === "null" || responseData.code === 400) {
+        } else if (
+          dataUrl === "null" ||
+          responseData.code === 400 ||
+          responseData.status === "Data user level tidak ditemukan"
+        ) {
           targetPage = "maaf.html";
         } else {
           console.error("URL tidak sesuai");
