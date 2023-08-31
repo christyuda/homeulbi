@@ -43,46 +43,21 @@ export function handleRtmClick(event) {
 //membuat get user
 
 document.addEventListener("DOMContentLoaded", () => {
-  const simpelbiCard = CihuyId("simpelbiCard");
+  const simpelbiCard = document.getElementById("simpelbiCard");
 
   if (simpelbiCard) {
     simpelbiCard.addEventListener("click", async (event) => {
       event.preventDefault();
 
-      const apiUrlMenu = "https://simbe-dev.ulbi.ac.id/api/v1/menu/";
-      const baseUrl = "https://euis.ulbi.ac.id";
+      const postApiUrlMenu = "https://simbe-dev.ulbi.ac.id/api/v1/menu/";
 
       try {
         let token = CihuyGetCookie("login");
 
-        // Lakukan permintaan POST untuk mendapatkan data
-        const postResult = await CihuyPostHeaders(apiUrlMenu, token, {});
+        // Lakukan permintaan POST
+        await CihuyPostHeaders(postApiUrlMenu, token);
 
-        // Parse respons JSON dari permintaan POST
-        const postData = JSON.parse(postResult);
-
-        // Ambil data URL dari respons POST
-        const dataUrl = postData.data;
-
-        // Tentukan peran pengguna berdasarkan data URL
-        let userRole = "";
-        if (dataUrl === "/admins") {
-          userRole = "admin";
-        } else if (dataUrl === "/fakultas") {
-          userRole = "fakultas";
-        } else if (dataUrl === "/prodi") {
-          userRole = "prodi";
-        } else if (dataUrl === "/auditors") {
-          userRole = "auditor";
-        } else {
-          console.error("URL tidak sesuai");
-          return;
-        }
-
-        // Buat URL akhir dan lakukan permintaan GET
-        const finalUrl = `${baseUrl}/simpelbi${dataUrl}/${userRole}`;
-        const getResult = await CihuyGetHeaders(finalUrl, token);
-        console.log("GET Result:", getResult); // Lakukan apa yang perlu dilakukan dengan hasil GET di sini
+        console.log("Permintaan POST berhasil dilakukan");
       } catch (error) {
         console.error("Error:", error);
       }
