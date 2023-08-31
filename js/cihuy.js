@@ -55,9 +55,13 @@ document.addEventListener("DOMContentLoaded", () => {
         let token = CihuyGetCookie("login");
 
         // Lakukan permintaan POST
-        await CihuyPostHeaders(postApiUrlMenu, token);
+        const postResult = await CihuyPostHeaders(postApiUrlMenu, token);
 
-        console.log("Permintaan POST berhasil dilakukan");
+        // Parse respons JSON dari permintaan POST
+        const responseData = JSON.parse(postResult);
+        console.log("Data JSON:", responseData);
+
+        // Lakukan pemrosesan lebih lanjut atau tampilkan data JSON di antara ini
       } catch (error) {
         console.error("Error:", error);
       }
