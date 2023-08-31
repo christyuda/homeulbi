@@ -64,8 +64,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Tentukan halaman tujuan berdasarkan data URL
         let targetPage = "";
-
-        if (dataUrl === "/admins") {
+        if (
+          responseData.code === 400 &&
+          responseData.success === false &&
+          responseData.status === "Data user level tidak ditemukan"
+        ) {
+          targetPage = "maaf.html";
+        } else if (dataUrl === "/admins") {
           targetPage = "dashboard-admin.html";
         } else if (dataUrl === "/prodi") {
           targetPage = "dashboard-prodi.html";
@@ -73,12 +78,6 @@ document.addEventListener("DOMContentLoaded", () => {
           targetPage = "dashboard-fakultas.html";
         } else if (dataUrl === "/auditor") {
           targetPage = "dashboard-auditor.html";
-        } else if (
-          dataUrl === "null" &&
-          responseData.code === 400 &&
-          responseData.status === "Data user level tidak ditemukan"
-        ) {
-          targetPage = "maaf.html";
         } else {
           console.error("URL tidak sesuai");
           return;
