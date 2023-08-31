@@ -58,31 +58,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Parse respons JSON dari permintaan POST
         const responseData = JSON.parse(postResult);
-        if (
-          responseData.code === 400 &&
-          responseData.success === false &&
-          responseData.status === "Data user level tidak ditemukan"
-        ) {
-          // Arahkan pengguna ke halaman maaf
-          window.location.href = "https://euis.ulbi.ac.i.d/simpelbi/maaf.html";
-          return;
-        }
-        if (
-          responseData.code === 401 &&
-          responseData.success === false &&
-          responseData.status === "Unauthorize Token"
-        ) {
-          // Arahkan pengguna ke halaman maaf
-          window.location.href = "https://euis.ulbi.ac.i.d/simpelbi/maaf.html";
-          return;
-        }
 
         // Dapatkan data URL dari respons
         const dataUrl = responseData.data;
 
         // Tentukan halaman tujuan berdasarkan data URL
         let targetPage = "";
-        if (dataUrl === "/admins") {
+
+        if (responseData.code === 400 || responseData.code === 401) {
+          targetPage = "maaf.html";
+        } else if (dataUrl === "/admins") {
           targetPage = "dashboard-admin.html";
         } else if (dataUrl === "/prodi") {
           targetPage = "dashboard-prodi.html";
