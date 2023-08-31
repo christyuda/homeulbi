@@ -58,6 +58,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Parse respons JSON dari permintaan POST
         const responseData = JSON.parse(postResult);
+        if (
+          responseData.code === 400 &&
+          responseData.success === false &&
+          responseData.status === "Data user level tidak ditemukan"
+        ) {
+          // Arahkan pengguna ke halaman maaf
+          window.location.href = "https://euis.ulbi.ac.i.d/simpelbi/maaf.html";
+          return;
+        }
 
         // Dapatkan data URL dari respons
         const dataUrl = responseData.data;
@@ -68,13 +77,17 @@ document.addEventListener("DOMContentLoaded", () => {
           targetPage = "dashboard-admin.html";
         } else if (dataUrl === "/prodi") {
           targetPage = "dashboard-prodi.html";
+        } else if (dataUrl === "/fakultas") {
+          targetPage = "dashboard-fakultas.html";
+        } else if (dataUrl === "/auditor") {
+          targetPage = "dashboard-auditor.html";
         } else {
           console.error("URL tidak sesuai");
           return;
         }
 
         // Konstruksi URL akhir
-        const finalUrl = `https://euis.ulbi.ac.i.d/simpelbi/${dataUrl}/${targetPage}`;
+        const finalUrl = `https://euis.ulbi.ac.i.d/simpelbi${dataUrl}/${targetPage}`;
 
         // Arahkan pengguna ke URL akhir
         window.location.href = finalUrl;
